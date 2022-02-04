@@ -19,7 +19,7 @@ global QR
 QR = False
 
 def disp():
-    im = np.zeros((300,1500,3))
+    im = np.zeros((300,1250,3))
     p1 = ent_p1.get()
     p2 = ent_p2.get()
     
@@ -29,7 +29,7 @@ def disp():
         p1_props = players[p1.lower()]
     except:
         qr = pyqrcode.create(p1.lower())
-        qr.png("QR/"+p1+".png", scale = 2)
+        qr.png("QR/"+p1+".png", scale = 5)
         qrim = cv2.imread('QR/'+p1+'.png')
         p1_props = ['They/Them',qrim]
     p1_tag = p1
@@ -40,17 +40,17 @@ def disp():
         p2_props = players[p2.lower()]
     except:
         qr = pyqrcode.create(p2.lower())
-        qr.png("QR/"+p2+".png", scale = 2)
+        qr.png("QR/"+p2+".png", scale = 5)
         qrim = cv2.imread('QR/'+p2+'.png')
         p2_props = ['They/Them',qrim]
     p2_tag = p2
     p2_pronouns = p2_props[0]
-    p1_qr = p2_props[1]
+    p2_qr = p2_props[1]
     
     p1_org = (75,50)
     p1_color = (255,255,255)
     
-    p2_org = (750,50)
+    p2_org = (650,50)
     p2_color = (255,255,255)
     
     font = cv2.FONT_HERSHEY_TRIPLEX
@@ -66,11 +66,11 @@ def disp():
     #p2_props[1] = cv2.resize(p2_props[1],(64,64),interpolation = cv2.INTER_AREA)
     
     if QR:
-        im[p1_org[1]-45:p1_org[1]-45+p1_props[1].shape[0], p1_org[0]-70:p1_org[0]-70+p1_props[1].shape[1]] = p1_props[1]
+        im[p1_org[1]+45:p1_org[1]+45+p1_props[1].shape[0], p1_org[0]+70:p1_org[0]+70+p1_props[1].shape[1]] = p1_props[1]
         #im[p1_org[1]-45:p1_org[1]-45+p1_props[1].shape[0], p1_org[0]-70:p1_org[0]-70+p1_props[1].shape[1],1] = p1_props[1]
         #im[p1_org[1]-45:p1_org[1]-45+p1_props[1].shape[0], p1_org[0]-70:p1_org[0]-70+p1_props[1].shape[1],2] = p1_props[1]
         
-        im[p2_org[1]-45:p2_org[1]-45+p2_props[1].shape[0], p2_org[0]-70:p2_org[0]-70+p2_props[1].shape[1]] = p2_props[1]
+        im[p2_org[1]+45:p2_org[1]+45+p2_props[1].shape[0], p2_org[0]+70:p2_org[0]+70+p2_props[1].shape[1]] = p2_props[1]
         #im[p2_org[1]-45:p2_org[1]-45+p2_props[1].shape[0], p2_org[0]-70:p2_org[0]-70+p2_props[1].shape[1],1] = p2_props[1]
         #im[p2_org[1]-45:p2_org[1]-45+p2_props[1].shape[0], p2_org[0]-70:p2_org[0]-70+p2_props[1].shape[1],2] = p2_props[1]
     
@@ -99,7 +99,7 @@ def read_player_data(filename):
               for row in reader:
                   tag = row[0].lower()
                   qr = pyqrcode.create(tag)
-                  qr.png("QR/"+tag+".png", scale = 2)
+                  qr.png("QR/"+tag+".png", scale = 5)
                   qrim = cv2.imread('QR/'+tag+'.png')
                   players[row[0].lower()] = [row[1],qrim]
     return players
